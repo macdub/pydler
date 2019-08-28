@@ -1,0 +1,10 @@
+{
+    "moves": {
+        "options": ["forward", "backward", "left", "right"],
+        "duration": 1.5
+    },
+    "emotes": {
+        "options": ["dance", "fart"],
+        "duration": 2
+    }
+}
