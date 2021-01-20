@@ -8,7 +8,7 @@ Options:
 '''
 
 from docopt import docopt
-from time import sleep
+import time
 import keyboard
 import json
 import random
@@ -39,20 +39,24 @@ def main(args):
         action = l1_key[random.randint(0, len(l1_key)-1)]
 
         if action == 'moves':
-            duration = config[action]['duration'] * 1000  # convert to milliseconds
+            duration = config[action]['duration']  # convert to milliseconds
             key = move_map[config[action]['options'][random.randint(0, len(config[action]['options'])-1)]]
             print(f' >> duration {duration} key {key}')
-            for i in range(duration):
+            while duration > 0:
                 keyboard.press(key)
-                sleep(0.1)
+                time.sleep(0.1)
+                duration -= 0.1
+                print(f' >> remaining {duration}\r')
             keyboard.release(key)
+            print(' >> ')
 
         if action == 'emotes':
             duration = config[action]['duration']
             emote = config[action]['options'][random.randint(0, len(config[action]['options'])-1)]
             print(f' >> duration {duration} emote {emote}')
             keyboard.write(f'/{emote}')
-            sleep(duration)
+            keyboard.send('enter')
+            time.sleep(duration)
 
 
 if __name__ == '__main__':
